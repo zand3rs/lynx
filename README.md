@@ -5,5 +5,6 @@ A multi-tenant generic wallet platform.
 
 ### Start the web server:
 
-   revel run lynx
-
+```javascript
+$ revel run lynx
+```
