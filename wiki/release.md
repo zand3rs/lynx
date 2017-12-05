@@ -82,3 +82,5 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 ```
 
 #### Errors
+
+[Home](../README.md) | [API Docs](/wiki/index.md)

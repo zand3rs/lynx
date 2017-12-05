@@ -25,3 +25,5 @@
   }
 }
 ```
+
+[Home](../README.md) | [API Docs](/wiki/index.md)
