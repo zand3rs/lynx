@@ -1,4 +1,4 @@
-## **Get Wallet**
+## **Update Wallet**
 
 ### `PATCH` /v1/wallets/:id
 #### Headers
