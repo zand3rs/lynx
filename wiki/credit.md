@@ -34,7 +34,7 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 ```
 
 #### Response
-1. hold = FALSE, initial balance = 0.00
+##### 1. hold = FALSE, initial balance = 0.00
 
 ```javascript
 {  
@@ -47,7 +47,7 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 }
 ```
 
-2. hold = TRUE, initial balance = 0.00
+##### 2. hold = TRUE, initial balance = 0.00
 ```javascript
 {  
   "data": {  

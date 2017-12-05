@@ -27,13 +27,13 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 {
   "data": {
      "id": 1,
-     "name": "10",
-     "description": "10",
-     "label": "10",
-     "currentBalance": "10",
-     "availableBalance": "10",
-     "createdAt": "2017-01-31T04:16:36.331Z",
-     "updatedAt": "2017-01-31T04:16:36.331Z",
+     "name": "Test Wallet",
+     "description": "This wallet is for testing",
+     "label": "PHP",
+     "currentBalance": "0.00",
+     "availableBalance": "0.00",
+     "createdAt": "2017-12-05T04:16:36.331Z",
+     "updatedAt": "2017-12-05T04:16:36.331Z",
    }
 }
 ```
