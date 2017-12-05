@@ -50,8 +50,7 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 ##### 2. hold = TRUE, initial balance = 0.00
 ```javascript
 {  
-  "data": {  
-    "requestId": "0a7ec628-f3c6-4d73-a5f5-8367945f4edf", (given requestId)
+  "data": {
     "transactionId": "1",  
     "currentBalance": "10.00",
     "availableBalance": "0.00",
