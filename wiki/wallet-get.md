@@ -39,8 +39,3 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 ```
 
 #### Errors
- - [AuthorizationError](wiki/errors.md)
- - [RecordNotFound](wiki/errors.md)
- - [SystemError](wiki/errors.md)
- - [UnknownError](wiki/errors.md)
- - [ServerError](wiki/errors.md)

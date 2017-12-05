@@ -3,7 +3,7 @@
 #### 1. Wallet
   * [Create Wallet](/wiki/wallet-create.md)
   * [Get Wallet](/wiki/wallet-get.md)
-  * [Get Balance](/wiki/balance.md)
+  * [Update Wallet](/wiki/wallet-update.md)
   * [Credit](/wiki/credit.md)
   * [Debit](/wiki/debit.md)
 

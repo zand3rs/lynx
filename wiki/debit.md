@@ -39,7 +39,6 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 ```javascript
 {  
   "data": {  
-    "requestId": "0a7ec628-f3c6-4d73-a5f5-8367945f4edf", (given requestId)
     "transactionId": "1",  
     "currentBalance": "5.00",
     "availableBalance": "5.00",
@@ -62,8 +61,3 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 ```
 
 #### Errors
- - [AuthorizationError](wiki/errors.md)
- - [RecordNotFound](wiki/errors.md)
- - [SystemError](wiki/errors.md)
- - [UnknownError](wiki/errors.md)
- - [ServerError](wiki/errors.md)
