@@ -1,4 +1,4 @@
-## **GET Wallet Details**
+## **GET Balance**
 
 ### `GET` /v1/wallets/:id/balance
 #### Headers

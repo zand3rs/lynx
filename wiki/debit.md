@@ -1,4 +1,4 @@
-## **Debit Transaction**
+## **Debit Wallet**
 
 ### `POST` /v1/wallets/:id/debit
 #### Headers

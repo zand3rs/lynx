@@ -1,4 +1,4 @@
-## **Credit Transaction**
+## **Credit Wallet**
 
 ### `POST` /v1/wallets/:id/credit
 #### Headers
