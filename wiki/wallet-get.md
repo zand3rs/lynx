@@ -8,7 +8,7 @@
 | **Accept**  | R  |`string` | application/json |
 | **Authorizaton**  | R  |`string` | Basic base64(client_id:client_secret) |
 
-#### Parameters
+#### Path Parameters
 |Attribute  | R/O  | Type  | Description |
 |---------  | ---  | ----  | ----------- |
 | **id**  | R  |`string` | wallet ID |
