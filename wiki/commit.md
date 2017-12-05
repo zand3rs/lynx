@@ -32,12 +32,12 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 ```
 
 #### Response
-1. CREDIT transaction; initial balance = 10.00; held amount: 5.00
+##### 1. CREDIT transaction; initial balance = 10.00; held amount: 5.00
 ##### FROM:
 ```javascript
 {  
   "data": {
-    "transactionId": "1",  
+    "transactionId": "ba28ea60-d97d-49bb-9b18-d709cf9464b6s",  
     "currentBalance": "15.00",
     "availableBalance": "10.00",
     "updatedAt": "2017-12-05T03:34:30.971Z"
@@ -49,7 +49,7 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 ```javascript
 {  
   "data": {
-    "transactionId": "1",  
+    "transactionId": "ba28ea60-d97d-49bb-9b18-d709cf9464b6",  
     "currentBalance": "15.00",
     "availableBalance": "15.00",
     "updatedAt": "2017-12-05T03:34:30.971Z"
@@ -57,12 +57,12 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 }
 ```
 
-2. DEBIT transaction; initial balance = 10.00; held amount: 5.00
+##### 2. DEBIT transaction; initial balance = 10.00; held amount: 5.00
 ##### FROM:
 ```javascript
 {  
   "data": {
-    "transactionId": "1",  
+    "transactionId": "ba28ea60-d97d-49bb-9b18-d709cf9464b6",  
     "currentBalance": "5.00",
     "availableBalance": "10.00",
     "updatedAt": "2017-12-05T03:34:30.971Z"
@@ -74,7 +74,7 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 ```javascript
 {  
   "data": {
-    "transactionId": "1",  
+    "transactionId": "ba28ea60-d97d-49bb-9b18-d709cf9464b6",  
     "currentBalance": "5.00",
     "availableBalance": "5.00",
     "updatedAt": "2017-12-05T03:34:30.971Z"

@@ -34,12 +34,12 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 ```
 
 #### Response
-1. hold = FALSE, initial balance = 10.00
+##### 1. hold = FALSE, initial balance = 10.00
 
 ```javascript
 {  
   "data": {  
-    "transactionId": "1",  
+    "transactionId": "ba28ea60-d97d-49bb-9b18-d709cf9464b6",  
     "currentBalance": "5.00",
     "availableBalance": "5.00",
     "updatedAt": "2017-12-05T03:34:30.971Z"
@@ -47,12 +47,11 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 }
 ```
 
-2. hold = TRUE, initial balance = 10.00
+##### 2. hold = TRUE, initial balance = 10.00
 ```javascript
 {  
   "data": {  
-    "requestId": "0a7ec628-f3c6-4d73-a5f5-8367945f4edf", (given requestId)
-    "transactionId": "1",  
+    "transactionId": "ba28ea60-d97d-49bb-9b18-d709cf9464b6",  
     "currentBalance": "5.00",
     "availableBalance": "10.00",
     "updatedAt": "2017-12-05T03:34:30.971Z"

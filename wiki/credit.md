@@ -39,7 +39,7 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 ```javascript
 {  
   "data": {  
-    "transactionId": "1",  
+    "transactionId": "ba28ea60-d97d-49bb-9b18-d709cf9464b6",  
     "currentBalance": "10.00",
     "availableBalance": "10.00",
     "updatedAt": "2017-12-05T03:34:30.971Z"
@@ -50,8 +50,8 @@ Authorizaton: Basic a1JpYWxOQTkxTllUYzVqUURvaUNHUEpIU1Z1MTRSU3Y6UzJVT3FWckNzbUU3
 ##### 2. hold = TRUE, initial balance = 0.00
 ```javascript
 {  
-  "data": {
-    "transactionId": "1",  
+  "data": {  
+    "transactionId": "ba28ea60-d97d-49bb-9b18-d709cf9464b6",  
     "currentBalance": "10.00",
     "availableBalance": "0.00",
     "updatedAt": "2017-12-05T03:34:30.971Z"
