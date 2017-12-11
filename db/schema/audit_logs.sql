@@ -1,6 +1,8 @@
-DROP TABLE IF EXISTS audit_logs CASCADE;
-CREATE TABLE IF NOT EXISTS audit_logs (
-  id          bigserial NOT NULL PRIMARY KEY,
+SET search_path TO public;
+
+DROP TABLE IF EXISTS lynx.audit_logs CASCADE;
+CREATE TABLE IF NOT EXISTS lynx.audit_logs (
+  id          uuid NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
   db_user     text NOT NULL,
   db_name     text NOT NULL,
   db_schema   text NOT NULL,
@@ -26,7 +28,7 @@ CREATE OR REPLACE FUNCTION log_changes() RETURNS trigger AS $$
       old_record := row_to_json(OLD.*);
     END IF;
 
-    INSERT INTO audit_logs(db_user, db_name, db_schema, db_table, operation, old_record, new_record, query, created_at)
+    INSERT INTO lynx.audit_logs(db_user, db_name, db_schema, db_table, operation, old_record, new_record, query, created_at)
       VALUES(current_user, current_catalog, TG_TABLE_SCHEMA::text, TG_TABLE_NAME::text, TG_OP::text, old_record, new_record, current_query(), now());
 
     RETURN NULL;
@@ -39,15 +41,23 @@ DROP TRIGGER IF EXISTS log_changes ON credits;
 DROP TRIGGER IF EXISTS log_changes ON debits;
 DROP TRIGGER IF EXISTS log_changes ON topups;
 DROP TRIGGER IF EXISTS log_changes ON transactions;
-DROP TRIGGER IF EXISTS log_changes ON users;
+DROP TRIGGER IF EXISTS log_changes ON owners;
 DROP TRIGGER IF EXISTS log_changes ON wallets;
 
-CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON accounts     FOR EACH ROW EXECUTE PROCEDURE log_changes();
-CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON clients      FOR EACH ROW EXECUTE PROCEDURE log_changes();
-CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON credits      FOR EACH ROW EXECUTE PROCEDURE log_changes();
-CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON debits       FOR EACH ROW EXECUTE PROCEDURE log_changes();
-CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON topups       FOR EACH ROW EXECUTE PROCEDURE log_changes();
-CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON transactions FOR EACH ROW EXECUTE PROCEDURE log_changes();
-CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON users        FOR EACH ROW EXECUTE PROCEDURE log_changes();
-CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON wallets      FOR EACH ROW EXECUTE PROCEDURE log_changes();
+CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON accounts
+  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON clients
+  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON credits
+  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON debits
+  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON topups
+  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON transactions
+  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON owners
+  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON wallets
+  FOR EACH ROW EXECUTE PROCEDURE log_changes();
 

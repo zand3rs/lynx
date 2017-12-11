@@ -1,9 +1,11 @@
+SET search_path TO public;
+
 DROP TABLE IF EXISTS credits CASCADE;
 CREATE TABLE IF NOT EXISTS credits (
   id                 uuid NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
   transaction_id     uuid NOT NULL UNIQUE REFERENCES transactions(id),
   request_id         uuid NOT NULL UNIQUE,
-  wallet_id          uuid NOT NULL,
+  wallet_id          uuid NOT NULL REFERENCES wallets(id),
   amount             decimal(19,4) NOT NULL,
   remarks            text,
   operation          transop NOT NULL,

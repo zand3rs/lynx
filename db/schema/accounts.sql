@@ -1,6 +1,8 @@
+SET search_path TO public;
+
 DROP TABLE IF EXISTS accounts CASCADE;
 CREATE TABLE IF NOT EXISTS accounts (
-  id            bigserial NOT NULL PRIMARY KEY,
+  id            uuid NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
   name          text NOT NULL,
   description   text,
   created_at    timestamp with time zone NOT NULL DEFAULT now(),
