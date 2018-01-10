@@ -3,10 +3,10 @@ SET search_path TO public;
 DROP TABLE IF EXISTS transactions CASCADE;
 CREATE TABLE IF NOT EXISTS transactions (
   id                 uuid NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
-  reference_id       uuid UNIQUE REFERENCES transactions(id),
+  reference_id       uuid UNIQUE,
   request_id         uuid NOT NULL UNIQUE,
-  sender             uuid NOT NULL REFERENCES wallets(id),
-  recipient          uuid NOT NULL REFERENCES wallets(id),
+  sender             uuid NOT NULL,
+  recipient          uuid NOT NULL,
   amount             decimal(19,4) NOT NULL,
   remarks            text,
   operation          transop NOT NULL DEFAULT 'COMMIT',
