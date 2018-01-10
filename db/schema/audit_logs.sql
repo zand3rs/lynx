@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS lynx.audit_logs (
   created_at  timestamp with time zone NOT NULL DEFAULT now()
 );
 
-CREATE OR REPLACE FUNCTION log_changes() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION lynx.log_changes() RETURNS trigger AS $$
   DECLARE
     old_record json := NULL;
     new_record json := NULL;
@@ -45,19 +45,19 @@ DROP TRIGGER IF EXISTS log_changes ON owners;
 DROP TRIGGER IF EXISTS log_changes ON wallets;
 
 CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON accounts
-  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
 CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON clients
-  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
 CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON credits
-  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
 CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON debits
-  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
 CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON topups
-  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
 CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON transactions
-  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
 CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON owners
-  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
 CREATE TRIGGER log_changes AFTER INSERT OR UPDATE OR DELETE ON wallets
-  FOR EACH ROW EXECUTE PROCEDURE log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
 
