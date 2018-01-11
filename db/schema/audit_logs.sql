@@ -2,14 +2,14 @@ SET search_path TO public;
 
 DROP TABLE IF EXISTS lynx.audit_logs CASCADE;
 CREATE TABLE IF NOT EXISTS lynx.audit_logs (
-  id          uuid NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id          bigserial NOT NULL PRIMARY KEY,
   db_user     text NOT NULL,
   db_name     text NOT NULL,
   db_schema   text NOT NULL,
   db_table    text NOT NULL,
   operation   text NOT NULL,
-  old_record  jsonb,
-  new_record  jsonb,
+  old_record  json,
+  new_record  json,
   query       text NOT NULL,
   created_at  timestamp with time zone NOT NULL DEFAULT now()
 );
