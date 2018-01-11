@@ -9,3 +9,5 @@ CREATE TABLE IF NOT EXISTS owners (
   updated_at    timestamp with time zone NOT NULL DEFAULT now(),
   UNIQUE(account_id, uid)
 );
+
+INSERT INTO owners(account_id, uid) SELECT id, id FROM accounts WHERE name='Lynx';
