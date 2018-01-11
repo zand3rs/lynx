@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS transactions (
   recipient          uuid NOT NULL,
   amount             decimal(19,4) NOT NULL,
   remarks            text,
-  operation          transop NOT NULL DEFAULT 'COMMIT',
+  operation          t_op NOT NULL DEFAULT 'COMMIT',
   signature          text NOT NULL UNIQUE,
   created_at         timestamp with time zone NOT NULL DEFAULT now(),
   updated_at         timestamp with time zone NOT NULL DEFAULT now()
