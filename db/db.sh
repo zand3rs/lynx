@@ -1,28 +1,60 @@
 #!/bin/bash
 
-if [ $# -lt 3 ]; then
-    echo "Usage: $0 dbuser dbname dbpass [file.sql]"
-    exit 1
+SQL_OPTIONS=""
+SQL_SCRIPT=""
+DB_PASS=""
+
+usage() {
+  echo "Usage:"
+  echo "    $0 [options] <sql-script>"
+  echo "options:"
+  echo "    -h <host>"
+  echo "    -d <dbname>"
+  echo "    -u <user>"
+  echo "    -p <pass>"
+  exit 1
+}
+
+while getopts ":h:d:u:p:h" opt; do
+  case ${opt} in
+    h)
+      SQL_OPTIONS="$SQL_OPTIONS -h$OPTARG"
+      ;;
+    d)
+      SQL_OPTIONS="$SQL_OPTIONS -d$OPTARG"
+      ;;
+    u)
+      SQL_OPTIONS="$SQL_OPTIONS -U$OPTARG"
+      ;;
+    p)
+      DB_PASS="$OPTARG"
+      ;;
+    h|\?)
+      usage
+      ;;
+  esac
+done
+shift $((OPTIND -1))
+
+if [ $# -gt 0 ]; then
+  SQL_SCRIPT="$1"
 fi
 
-DBUSER=$1
-DBNAME=$2
-DBPASS=$3
-SQLFILE=$4
-
-if [ ! -z "$SQLFILE" ]; then
-    PGPASSWORD=$DBPASS psql -U $DBUSER -d $DBNAME -b -f $SQLFILE
-else
-    PGPASSWORD=$DBPASS psql -U $DBUSER -d $DBNAME -b -f schema/init.sql
-    PGPASSWORD=$DBPASS psql -U $DBUSER -d $DBNAME -b -f schema/accounts.sql
-    PGPASSWORD=$DBPASS psql -U $DBUSER -d $DBNAME -b -f schema/clients.sql
-    PGPASSWORD=$DBPASS psql -U $DBUSER -d $DBNAME -b -f schema/owners.sql
-    PGPASSWORD=$DBPASS psql -U $DBUSER -d $DBNAME -b -f schema/wallets.sql
-    PGPASSWORD=$DBPASS psql -U $DBUSER -d $DBNAME -b -f schema/topups.sql
-    PGPASSWORD=$DBPASS psql -U $DBUSER -d $DBNAME -b -f schema/transactions.sql
-    PGPASSWORD=$DBPASS psql -U $DBUSER -d $DBNAME -b -f schema/credits.sql
-    PGPASSWORD=$DBPASS psql -U $DBUSER -d $DBNAME -b -f schema/debits.sql
-    PGPASSWORD=$DBPASS psql -U $DBUSER -d $DBNAME -b -f schema/audit_logs.sql
+if [ -z "$SQL_SCRIPT" ]; then
+  usage
 fi
+
+## check if directory
+if [ -d "$SQL_SCRIPT" ]; then
+  SQL_SCRIPT="${SQL_SCRIPT%/}/*"
+fi
+
+## execute script
+for SQL in $SQL_SCRIPT; do
+  if [ -f "$SQL" ]; then
+    echo "Executing $SQL..."
+    PGPASSWORD=$DB_PASS psql $SQL_OPTIONS -b -f $SQL
+  fi
+done
 
 exit 0

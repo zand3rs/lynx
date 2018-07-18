@@ -1,3 +1,5 @@
-CREATE USER lynx WITH PASSWORD 'anbu' superuser;
 DROP DATABASE IF EXISTS lynx;
+DROP ROLE IF EXISTS lynx;
+
+CREATE ROLE lynx WITH PASSWORD 'anbu' superuser;
 CREATE DATABASE lynx OWNER lynx;
