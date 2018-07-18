@@ -8,10 +8,10 @@ CREATE TABLE IF NOT EXISTS wallets (
   description        text,
   label              text,
   principal          boolean,
-  current_balance    decimal(19,4) NOT NULL DEFAULT 0,
-  available_balance  decimal(19,4) NOT NULL DEFAULT 0,
-  created_at         timestamp with time zone NOT NULL DEFAULT now(),
-  updated_at         timestamp with time zone NOT NULL DEFAULT now(),
+  current_balance    numeric(19,4) NOT NULL DEFAULT 0,
+  available_balance  numeric(19,4) NOT NULL DEFAULT 0,
+  created_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE(owner_id, name),
   UNIQUE(owner_id, principal)
 );

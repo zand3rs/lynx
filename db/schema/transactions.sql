@@ -7,10 +7,10 @@ CREATE TABLE IF NOT EXISTS transactions (
   request_id         uuid NOT NULL UNIQUE,
   sender             uuid NOT NULL,
   recipient          uuid NOT NULL,
-  amount             decimal(19,4) NOT NULL,
+  amount             numeric(19,4) NOT NULL,
   remarks            text,
   operation          t_op NOT NULL DEFAULT 'COMMIT',
   signature          text NOT NULL UNIQUE,
-  created_at         timestamp with time zone NOT NULL DEFAULT now(),
-  updated_at         timestamp with time zone NOT NULL DEFAULT now()
+  created_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

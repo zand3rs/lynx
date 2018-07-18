@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS accounts (
   id            uuid NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
   name          text NOT NULL UNIQUE,
   description   text,
-  created_at    timestamp with time zone NOT NULL DEFAULT now(),
-  updated_at    timestamp with time zone NOT NULL DEFAULT now()
+  created_at    timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at    timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 INSERT INTO accounts(name, description) VALUES('Lynx', 'System account');

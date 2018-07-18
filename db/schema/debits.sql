@@ -6,11 +6,11 @@ CREATE TABLE IF NOT EXISTS debits (
   transaction_id     uuid NOT NULL UNIQUE REFERENCES transactions(id),
   request_id         uuid NOT NULL UNIQUE,
   wallet_id          uuid NOT NULL REFERENCES wallets(id),
-  amount             decimal(19,4) NOT NULL,
+  amount             numeric(19,4) NOT NULL,
   remarks            text,
   operation          t_op NOT NULL,
-  current_balance    decimal(19,4) NOT NULL,
-  available_balance  decimal(19,4) NOT NULL,
-  created_at         timestamp with time zone NOT NULL DEFAULT now(),
-  updated_at         timestamp with time zone NOT NULL DEFAULT now()
+  current_balance    numeric(19,4) NOT NULL,
+  available_balance  numeric(19,4) NOT NULL,
+  created_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
