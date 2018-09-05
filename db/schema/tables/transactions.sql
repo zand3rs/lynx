@@ -14,3 +14,5 @@ CREATE TABLE IF NOT EXISTS transactions (
   created_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE INDEX created_at ON transactions(created_at);

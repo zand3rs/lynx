@@ -6,7 +6,7 @@ DB_PASS=""
 
 usage() {
   echo "Usage:"
-  echo "    $0 [options] <sql-script>"
+  echo "    $0 [options] <path/to/script>"
   echo "options:"
   echo "    -h <host>"
   echo "    -d <dbname>"
@@ -53,7 +53,7 @@ fi
 for SQL in $SQL_SCRIPT; do
   if [ -f "$SQL" ]; then
     echo "Executing $SQL..."
-    PGPASSWORD=$DB_PASS psql $SQL_OPTIONS -b -f $SQL
+    PGOPTIONS="--client-min-messages=warning" PGPASSWORD=$DB_PASS psql $SQL_OPTIONS -b -f $SQL
   fi
 done
 
