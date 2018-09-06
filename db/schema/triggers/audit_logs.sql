@@ -10,19 +10,19 @@ DROP TRIGGER IF EXISTS record_history ON owners;
 DROP TRIGGER IF EXISTS record_history ON wallets;
 
 CREATE TRIGGER record_history AFTER INSERT OR UPDATE OR DELETE ON accounts
-  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE private.log_changes();
 CREATE TRIGGER record_history AFTER INSERT OR UPDATE OR DELETE ON clients
-  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE private.log_changes();
 CREATE TRIGGER record_history AFTER INSERT OR UPDATE OR DELETE ON credits
-  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE private.log_changes();
 CREATE TRIGGER record_history AFTER INSERT OR UPDATE OR DELETE ON debits
-  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE private.log_changes();
 CREATE TRIGGER record_history AFTER INSERT OR UPDATE OR DELETE ON topups
-  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE private.log_changes();
 CREATE TRIGGER record_history AFTER INSERT OR UPDATE OR DELETE ON transactions
-  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE private.log_changes();
 CREATE TRIGGER record_history AFTER INSERT OR UPDATE OR DELETE ON owners
-  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE private.log_changes();
 CREATE TRIGGER record_history AFTER INSERT OR UPDATE OR DELETE ON wallets
-  FOR EACH ROW EXECUTE PROCEDURE lynx.log_changes();
+  FOR EACH ROW EXECUTE PROCEDURE private.log_changes();
 

@@ -1,4 +1,4 @@
-SET search_path TO lynx;
+SET search_path TO private;
 
 DROP TABLE IF EXISTS audit_logs CASCADE;
 CREATE TABLE IF NOT EXISTS audit_logs (

@@ -1,6 +1,4 @@
-SET search_path TO public;
-
-CREATE OR REPLACE FUNCTION lynx.log_changes() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION private.log_changes() RETURNS trigger AS $$
   DECLARE
     old_record json := NULL;
     new_record json := NULL;
@@ -14,7 +12,7 @@ CREATE OR REPLACE FUNCTION lynx.log_changes() RETURNS trigger AS $$
       old_record := row_to_json(OLD.*);
     END IF;
 
-    INSERT INTO lynx.audit_logs(db_user, db_name, db_schema, db_table, operation, old_record, new_record, query, created_at)
+    INSERT INTO private.audit_logs(db_user, db_name, db_schema, db_table, operation, old_record, new_record, query, created_at)
       VALUES(current_user, current_catalog, TG_TABLE_SCHEMA::text, TG_TABLE_NAME::text, TG_OP::text, old_record, new_record, current_query(), now());
 
     RETURN NULL;
