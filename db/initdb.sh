@@ -23,8 +23,8 @@ scripts=(
   "schema/tables/credits.sql"
   "schema/tables/debits.sql"
   #"schema/tables/audit_logs.sql"
-  #"schema/functions/audit_logs.sql"
-  #"schema/triggers/audit_logs.sql"
+  #"schema/functions/log_changes.sql"
+  #"schema/triggers/record_history.sql"
 )
 
 for s in ${scripts[*]}; do
