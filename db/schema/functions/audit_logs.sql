@@ -1,3 +1,5 @@
+SET search_path TO public;
+
 CREATE OR REPLACE FUNCTION lynx.log_changes() RETURNS trigger AS $$
   DECLARE
     old_record json := NULL;
