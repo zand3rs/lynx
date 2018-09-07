@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SQL_OPTIONS=""
+SQL_OPTIONS="-v ON_ERROR_STOP=1"
 SQL_SCRIPT=""
 DB_PASS=""
 
@@ -54,6 +54,7 @@ for SQL in $SQL_SCRIPT; do
   if [ -f "$SQL" ]; then
     echo "Executing $SQL..."
     PGOPTIONS="--client-min-messages=warning" PGPASSWORD=$DB_PASS psql $SQL_OPTIONS -b -f $SQL
+    [ "$?" != "0" ] && exit 1
   fi
 done
 

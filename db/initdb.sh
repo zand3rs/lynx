@@ -29,6 +29,7 @@ scripts=(
 
 for s in ${scripts[*]}; do
   ./sql.sh -h$DBHOST -d$DBNAME -u$DBNAME -p$DBPASS $s 
+  [ "$?" != "0" ] && exit 1
 done
 
 exit 0
