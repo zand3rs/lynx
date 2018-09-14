@@ -9,8 +9,5 @@ SET search_path TO public;
 DROP EXTENSION IF EXISTS "uuid-ossp" CASCADE;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-DROP TYPE IF EXISTS t_op CASCADE;
-CREATE TYPE t_op AS ENUM ('COMMIT', 'HOLD', 'RELEASE');
-
-DROP TYPE IF EXISTS t_status CASCADE;
-CREATE TYPE t_status AS ENUM ('SUCCESS', 'FAIL', 'PENDING', 'PROCESSING');
+DROP TYPE IF EXISTS t_operation CASCADE;
+CREATE TYPE t_operation AS ENUM ('commit', 'hold', 'release');

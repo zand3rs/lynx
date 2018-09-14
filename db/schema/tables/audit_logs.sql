@@ -14,4 +14,4 @@ CREATE TABLE IF NOT EXISTS audit_logs (
   created_at  timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX created_at ON audit_logs(created_at);
+CREATE INDEX audit_logs_created_at ON audit_logs(created_at);

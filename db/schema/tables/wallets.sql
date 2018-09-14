@@ -1,5 +1,8 @@
 SET search_path TO public;
 
+DROP TYPE IF EXISTS t_wallet_type CASCADE;
+CREATE TYPE t_wallet_type AS ENUM ('system', 'account', 'default');
+
 DROP TABLE IF EXISTS wallets CASCADE;
 CREATE TABLE IF NOT EXISTS wallets (
   id                 uuid NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -8,15 +11,13 @@ CREATE TABLE IF NOT EXISTS wallets (
   description        text,
   label              text,
   principal          boolean,
+  type               t_wallet_type DEFAULT 'default',
   current_balance    numeric(19,4) NOT NULL DEFAULT 0,
   available_balance  numeric(19,4) NOT NULL DEFAULT 0,
+  active             boolean DEFAULT true,
+  deleted_at         timestamp with time zone,
   created_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE(owner_id, name),
-  UNIQUE(owner_id, principal)
+  UNIQUE(owner_id, principal, active)
 );
-
-INSERT INTO wallets(owner_id, name, description, principal)
-  SELECT owners.id, 'Lynx Wallet', 'Lynx mother wallet', true
-  FROM owners INNER JOIN accounts ON owners.account_id=accounts.id
-  WHERE owners.account_id::text=owners.uid AND accounts.name='Lynx';

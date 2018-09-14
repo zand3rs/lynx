@@ -13,7 +13,7 @@ while read -p "Continue initializing the database? (y/n): " confirm; do
 done
 
 scripts=(
-  "schema/init.sql"
+  "schema/common.sql"
   "schema/tables/accounts.sql"
   "schema/tables/clients.sql"
   "schema/tables/owners.sql"
@@ -25,6 +25,8 @@ scripts=(
   #"schema/tables/audit_logs.sql"
   #"schema/functions/log_changes.sql"
   #"schema/triggers/record_history.sql"
+  "schema/records/system.sql"
+  "schema/records/sample.sql"
 )
 
 for s in ${scripts[*]}; do
