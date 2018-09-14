@@ -25,6 +25,7 @@ scripts=(
   #"schema/tables/audit_logs.sql"
   #"schema/functions/log_changes.sql"
   #"schema/triggers/record_history.sql"
+  "schema/functions/credit.sql"
   "schema/records/system.sql"
   "schema/records/sample.sql"
 )
