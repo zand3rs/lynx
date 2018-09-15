@@ -3,7 +3,7 @@ SET search_path TO public;
 DROP TABLE IF EXISTS transactions CASCADE;
 CREATE TABLE IF NOT EXISTS transactions (
   id                 uuid NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
-  reference_id       uuid REFERENCES transactions(id),
+  reference_id       uuid UNIQUE REFERENCES transactions(id),
   request_id         uuid NOT NULL UNIQUE,
   sender             uuid NOT NULL,
   recipient          uuid NOT NULL,

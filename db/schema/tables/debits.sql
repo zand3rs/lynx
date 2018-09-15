@@ -3,6 +3,7 @@ SET search_path TO public;
 DROP TABLE IF EXISTS debits CASCADE;
 CREATE TABLE IF NOT EXISTS debits (
   id                 uuid NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  reference_id       uuid UNIQUE REFERENCES debits(id),
   transaction_id     uuid NOT NULL REFERENCES transactions(id),
   wallet_id          uuid NOT NULL REFERENCES wallets(id),
   amount             numeric(19,4) NOT NULL,
