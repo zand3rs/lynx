@@ -1,28 +1,47 @@
 CREATE OR REPLACE FUNCTION private.credit(
-  transaction_id uuid,
-  wallet_id      uuid,
-  amount         numeric,
-  remarks        text,
-  operation      t_operation
+  reference_id    uuid,
+  transaction_id  uuid,
+  wallet_id       uuid,
+  reserved_amount numeric,
+  approved_amount numeric,
+  remarks         text,
+  operation       t_operation
 )
 RETURNS credits AS $$
   DECLARE
     credit public.credits;
     wallet public.wallets;
+
+    current_amount   numeric := 0;
+    available_amount numeric := 0;
   BEGIN
+
+    -- compute credit amount
+    CASE operation
+      WHEN 'commit' THEN
+        current_amount := approved_amount - reserved_amount;
+        available_amount := approved_amount;
+      WHEN 'hold' THEN
+        current_amount := approved_amount;
+      WHEN 'release' THEN
+        current_amount := reserved_amount;
+    END CASE;
+
     -- update wallet
     UPDATE public.wallets SET
-      current_balance = current_balance + amount,
-      available_balance = available_balance + amount
+      current_balance = current_balance + current_amount,
+      available_balance = available_balance + available_amount
     WHERE
-      id = wallet_id
+      id = wallet_id AND
+      (current_balance + current_amount) >= 0 AND
+      (available_balance + available_amount) >= 0
     RETURNING * INTO wallet;
 
     -- create a credit record
     INSERT INTO public.credits (
-      transaction_id, wallet_id, amount, remarks, operation, current_balance, available_balance
+      reference_id, transaction_id, wallet_id, amount, remarks, operation, current_balance, available_balance
     ) VALUES (
-      transaction_id, wallet_id, amount, remarks, operation, wallet.current_balance, wallet.available_balance
+      reference_id, transaction_id, wallet_id, approved_amount, remarks, operation, wallet.current_balance, wallet.available_balance
     )
     RETURNING * INTO credit;
 
