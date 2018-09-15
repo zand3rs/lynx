@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION private.debit(
   remarks         text,
   operation       t_operation
 )
-RETURNS debits AS $$
+RETURNS public.debits AS $$
   DECLARE
     debit public.debits;
     wallet public.wallets;

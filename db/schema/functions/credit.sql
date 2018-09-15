@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION private.credit(
   remarks         text,
   operation       t_operation
 )
-RETURNS credits AS $$
+RETURNS public.credits AS $$
   DECLARE
     credit public.credits;
     wallet public.wallets;
