@@ -14,17 +14,28 @@ RETURNS credits AS $$
 
     current_amount   numeric := 0;
     available_amount numeric := 0;
+    actual_amount    numeric := 0;
   BEGIN
+
+    -- approved_amount should be greater than or equal to reserved_amount
+    IF approved_amount > reserved_amount THEN
+      RAISE EXCEPTION 'Approved amount is greater than reserved amount!';
+    END IF;
 
     -- compute credit amount
     CASE operation
       WHEN 'commit' THEN
         current_amount := approved_amount - reserved_amount;
         available_amount := approved_amount;
+        actual_amount := approved_amount;
+      WHEN 'release' THEN
+        current_amount := approved_amount - reserved_amount;
+        actual_amount := reserved_amount;
       WHEN 'hold' THEN
         current_amount := approved_amount;
-      WHEN 'release' THEN
-        current_amount := reserved_amount;
+        actual_amount := approved_amount;
+      ELSE
+        RAISE EXCEPTION 'Invalid operation!';
     END CASE;
 
     -- update wallet
@@ -41,7 +52,7 @@ RETURNS credits AS $$
     INSERT INTO public.credits (
       reference_id, transaction_id, wallet_id, amount, remarks, operation, current_balance, available_balance
     ) VALUES (
-      reference_id, transaction_id, wallet_id, approved_amount, remarks, operation, wallet.current_balance, wallet.available_balance
+      reference_id, transaction_id, wallet_id, actual_amount, remarks, operation, wallet.current_balance, wallet.available_balance
     )
     RETURNING * INTO credit;
 
