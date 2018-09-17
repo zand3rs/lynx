@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS credits CASCADE;
 CREATE TABLE IF NOT EXISTS credits (
   id                 uuid NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
   reference_id       uuid UNIQUE REFERENCES credits(id),
-  transaction_id     uuid NOT NULL REFERENCES transactions(id),
+  transaction_id     uuid NOT NULL UNIQUE REFERENCES transactions(id),
   wallet_id          uuid NOT NULL REFERENCES wallets(id),
   amount             numeric(19,4) NOT NULL,
   remarks            text,
