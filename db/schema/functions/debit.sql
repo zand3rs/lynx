@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION private.debit(
+CREATE OR REPLACE FUNCTION private.debit (
   reference_id    uuid,
   transaction_id  uuid,
   wallet_id       uuid,

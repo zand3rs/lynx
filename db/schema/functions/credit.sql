@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION private.credit(
+CREATE OR REPLACE FUNCTION private.credit (
   reference_id    uuid,
   transaction_id  uuid,
   wallet_id       uuid,
