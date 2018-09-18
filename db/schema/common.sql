@@ -11,3 +11,13 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 DROP TYPE IF EXISTS t_operation CASCADE;
 CREATE TYPE t_operation AS ENUM ('commit', 'hold', 'release');
+
+DROP TYPE IF EXISTS t_transfer CASCADE;
+CREATE TYPE t_transfer AS (
+  request_id        uuid,
+  transaction_id    uuid,
+  wallet_id         uuid,
+  current_balance   numeric,
+  available_balance numeric,
+  updated_at        timestamp
+);

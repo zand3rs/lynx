@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION private.credit (
+CREATE OR REPLACE FUNCTION private.credit_wallet (
   reference_id    uuid,
   transaction_id  uuid,
   wallet_id       uuid,
@@ -17,9 +17,17 @@ RETURNS public.credits AS $$
     actual_amount    numeric := 0;
   BEGIN
 
-    -- approved_amount should be greater than or equal to reserved_amount
+    -- perform some validations
+    IF approved_amount IS NULL OR approved_amount < 0 THEN
+      RAISE check_violation USING MESSAGE = 'Invalid approved amount';
+    END IF;
+
+    IF reserved_amount IS NULL OR reserved_amount < 0 THEN
+      RAISE check_violation USING MESSAGE = 'Invalid reserved amount';
+    END IF;
+
     IF approved_amount > reserved_amount THEN
-      RAISE EXCEPTION 'Approved amount is greater than reserved amount!';
+      RAISE check_violation USING MESSAGE = 'Approved amount > reserved amount';
     END IF;
 
     -- compute credit amount
@@ -35,13 +43,14 @@ RETURNS public.credits AS $$
         current_amount := approved_amount;
         actual_amount := approved_amount;
       ELSE
-        RAISE EXCEPTION 'Invalid operation!';
+        RAISE check_violation USING MESSAGE = 'Invalid operation';
     END CASE;
 
     -- update wallet
     UPDATE public.wallets SET
       current_balance = current_balance + current_amount,
-      available_balance = available_balance + available_amount
+      available_balance = available_balance + available_amount,
+      updated_at = CURRENT_TIMESTAMP
     WHERE
       id = wallet_id AND
       (current_balance + current_amount) >= 0 AND
@@ -57,5 +66,6 @@ RETURNS public.credits AS $$
     RETURNING * INTO credit;
 
     RETURN credit;
+
   END;
 $$ LANGUAGE plpgsql;
