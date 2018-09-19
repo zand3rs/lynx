@@ -13,7 +13,6 @@ RETURNS SETOF public.t_transfer AS $$
     credit      public.credits;
     operation   public.t_operation := 'release';
   BEGIN
-
     -- perform some validations
     IF request_id IS NULL THEN
       RAISE not_null_violation USING MESSAGE = 'Request ID is NULL';
@@ -73,6 +72,5 @@ RETURNS SETOF public.t_transfer AS $$
       UNION
       SELECT transaction.request_id, transaction.id, credit.wallet_id,
         credit.current_balance, credit.available_balance, credit.updated_at;
-
   END;
 $$ LANGUAGE plpgsql;

@@ -16,7 +16,6 @@ RETURNS public.debits AS $$
     available_amount numeric := 0;
     actual_amount    numeric := 0;
   BEGIN
-
     -- perform some validations
     IF approved_amount IS NULL OR approved_amount < 0 THEN
       RAISE check_violation USING MESSAGE = 'Invalid approved amount';
@@ -66,6 +65,5 @@ RETURNS public.debits AS $$
     RETURNING * INTO debit;
 
     RETURN debit;
-
   END;
 $$ LANGUAGE plpgsql;
