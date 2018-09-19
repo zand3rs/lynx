@@ -1,8 +1,5 @@
 SET search_path TO public;
 
-DROP TYPE IF EXISTS t_wallet_type CASCADE;
-CREATE TYPE t_wallet_type AS ENUM ('system', 'account', 'default');
-
 DROP TABLE IF EXISTS wallets CASCADE;
 CREATE TABLE IF NOT EXISTS wallets (
   id                 uuid NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),

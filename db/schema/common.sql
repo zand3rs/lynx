@@ -9,6 +9,15 @@ SET search_path TO public;
 DROP EXTENSION IF EXISTS "uuid-ossp" CASCADE;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+DROP EXTENSION IF EXISTS citext CASCADE;
+CREATE EXTENSION IF NOT EXISTS citext;
+
+DROP TYPE IF EXISTS t_account_type CASCADE;
+CREATE TYPE t_account_type AS ENUM ('system', 'default');
+
+DROP TYPE IF EXISTS t_wallet_type CASCADE;
+CREATE TYPE t_wallet_type AS ENUM ('system', 'account', 'default');
+
 DROP TYPE IF EXISTS t_operation CASCADE;
 CREATE TYPE t_operation AS ENUM ('commit', 'hold', 'release');
 
