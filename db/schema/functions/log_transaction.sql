@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION private.log_transaction (
-  request_id  uuid,
-  checksum    text
+  _request_id  uuid,
+  _checksum    text
 )
 RETURNS public.transactions AS $$
   DECLARE
@@ -9,7 +9,7 @@ RETURNS public.transactions AS $$
     INSERT INTO public.transactions (
       request_id, checksum
     ) VALUES (
-      request_id, checksum
+      _request_id, _checksum
     )
     -- update timestamp for replayed transactions
     ON CONFLICT (request_id) DO UPDATE
@@ -18,8 +18,8 @@ RETURNS public.transactions AS $$
 
     -- throw error if replay and checksums do not match
     IF transaction.updated_at <> transaction.created_at AND
-       transaction.checksum <> checksum THEN
-      RAISE unique_violation USING MESSAGE = 'Duplicate request_id: ' || request_id::text;
+       transaction.checksum <> _checksum THEN
+      RAISE unique_violation USING MESSAGE = 'Duplicate request_id: ' || _request_id;
     END IF;
 
     RETURN transaction;

@@ -33,10 +33,10 @@ RETURNS public.t_transfer AS $$
     END IF;
 
     -- log transaction
-    SELECT private.log_transaction (request_id, checksum) INTO transaction; 
+    SELECT * INTO transaction FROM private.log_transaction(request_id, checksum) LIMIT 1;
 
-    -- check for replays
-    SELECT private.replay_transaction (transaction) INTO transfer;
+    -- check for replays, return if found
+    SELECT * INTO transfer FROM private.replay_transaction(transaction) LIMIT 1;
 
     IF transfer IS NOT NULL THEN
       RETURN transfer;
@@ -55,16 +55,16 @@ RETURNS public.t_transfer AS $$
     END IF;
 
     -- execute debit
-    SELECT private.debit_wallet (
+    SELECT * INTO debit FROM private.debit_wallet(
         ref_debit.id, transaction.id, ref_debit.wallet_id, ref_debit.amount, COALESCE(amount, 0),
         remarks, operation
-      ) INTO debit;
+      ) LIMIT 1;
 
     -- execute credit
-    SELECT private.credit_wallet (
+    SELECT * INTO credit FROM private.credit_wallet(
         ref_credit.id, transaction.id, ref_credit.wallet_id, ref_credit.amount, COALESCE(amount, 0),
         remarks, operation
-      ) INTO credit;
+      ) LIMIT 1;
 
     -- return transfer details
     SELECT transaction.request_id, transaction.id,

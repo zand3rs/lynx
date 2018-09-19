@@ -25,7 +25,7 @@ RETURNS public.debits AS $$
       RAISE check_violation USING MESSAGE = 'Invalid reserved amount';
     END IF;
 
-    IF approved_amount > reserved_amount THEN
+    IF reserved_amount > 0 AND approved_amount > reserved_amount THEN
       RAISE check_violation USING MESSAGE = 'Approved amount > reserved amount';
     END IF;
 
@@ -51,10 +51,19 @@ RETURNS public.debits AS $$
       available_balance = available_balance - available_amount,
       updated_at = CURRENT_TIMESTAMP
     WHERE
-      id = wallet_id AND
-      (current_balance - current_amount) >= 0 AND
-      (available_balance - available_amount) >= 0
+      id = wallet_id
     RETURNING * INTO wallet;
+
+    RAISE NOTICE 'wallet: %', wallet;
+
+    -- wallet validations
+    IF wallet IS NULL THEN
+      RAISE check_violation USING MESSAGE = 'Wallet not found: ' || wallet_id;
+    END IF;
+
+    IF wallet.current_balance < 0 OR wallet.available_balance < 0 THEN
+      RAISE check_violation USING MESSAGE = 'Insufficient funds';
+    END IF;
 
     -- create a debit record
     INSERT INTO public.debits (
