@@ -24,6 +24,7 @@ scripts=(
   "schema/tables/debits.sql"
   "schema/functions/log_transaction.sql"
   "schema/functions/replay_transaction.sql"
+  "schema/functions/create_wallet.sql"
   "schema/functions/debit_wallet.sql"
   "schema/functions/credit_wallet.sql"
   "schema/functions/process_transfer.sql"
