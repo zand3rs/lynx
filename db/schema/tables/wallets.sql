@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS wallets (
   name               text NOT NULL,
   description        text,
   label              text,
-  principal          boolean,
   type               t_wallet_type DEFAULT 'default',
   current_balance    numeric(19,4) NOT NULL DEFAULT 0,
   available_balance  numeric(19,4) NOT NULL DEFAULT 0,
@@ -15,6 +14,5 @@ CREATE TABLE IF NOT EXISTS wallets (
   deleted_at         timestamp,
   created_at         timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at         timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE(owner_id, name),
-  UNIQUE(owner_id, principal, active)
+  UNIQUE(owner_id, name, active)
 );

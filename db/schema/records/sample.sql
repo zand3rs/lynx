@@ -17,9 +17,9 @@ INSERT INTO owners(account_id, uid)
   VALUES('aa1f89fa-de78-473b-bca0-9a3eb65a2045', 'a28fa94c-5f56-4b3b-bd38-18b9977d4f88');
 
 -- create mother wallet for sample account
-INSERT INTO wallets(id, owner_id, name, description, principal, type, current_balance, available_balance)
+INSERT INTO wallets(id, owner_id, name, description, type, current_balance, available_balance)
   SELECT 'a05bd3b4-55fa-402d-8ce7-d6d63abc77b1', owners.id,
-         'Sample Mother Wallet', 'Sample mother wallet', true, 'account', 100000, 100000
+         'Sample Mother Wallet', 'Sample mother wallet', 'account', 100000, 100000
   FROM owners
   WHERE uid = 'aa1f89fa-de78-473b-bca0-9a3eb65a2045';
 
