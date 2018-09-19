@@ -10,6 +10,6 @@ CREATE TABLE IF NOT EXISTS topups (
   remarks            text,
   current_balance    numeric(19,4) NOT NULL CHECK(current_balance >= 0),
   available_balance  numeric(19,4) NOT NULL CHECK(available_balance >= 0),
-  created_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
+  created_at         timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at         timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

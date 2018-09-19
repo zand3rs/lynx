@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS audit_logs (
   old_record  json,
   new_record  json,
   query       text NOT NULL,
-  created_at  timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
+  created_at  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX audit_logs_created_at ON audit_logs(created_at);

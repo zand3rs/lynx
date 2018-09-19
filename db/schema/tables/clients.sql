@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS clients (
   account_id    uuid NOT NULL REFERENCES accounts(id),
   uid           text NOT NULL UNIQUE,
   scope         json,
-  created_at    timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at    timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created_at    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE(account_id, uid)
 );

@@ -15,9 +15,9 @@ CREATE TABLE IF NOT EXISTS wallets (
   current_balance    numeric(19,4) NOT NULL DEFAULT 0,
   available_balance  numeric(19,4) NOT NULL DEFAULT 0,
   active             boolean DEFAULT true,
-  deleted_at         timestamp with time zone,
-  created_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at         timestamp,
+  created_at         timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at         timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE(owner_id, name),
   UNIQUE(owner_id, principal, active)
 );

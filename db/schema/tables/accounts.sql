@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS accounts (
   name          text NOT NULL UNIQUE,
   description   text,
   type          t_account_type DEFAULT 'default',
-  deleted_at    timestamp with time zone,
-  created_at    timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at    timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
+  deleted_at    timestamp,
+  created_at    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

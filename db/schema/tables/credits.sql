@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS credits (
   operation          t_operation NOT NULL,
   current_balance    numeric(19,4) NOT NULL,
   available_balance  numeric(19,4) NOT NULL,
-  created_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at         timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
+  created_at         timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at         timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX credits_created_at ON credits(created_at);
