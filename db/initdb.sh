@@ -23,6 +23,7 @@ scripts=(
   "schema/tables/credits.sql"
   "schema/tables/debits.sql"
   "schema/functions/log_transaction.sql"
+  "schema/functions/replay_transaction.sql"
   "schema/functions/debit_wallet.sql"
   "schema/functions/credit_wallet.sql"
   "schema/functions/process_transfer.sql"

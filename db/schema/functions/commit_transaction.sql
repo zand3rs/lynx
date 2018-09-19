@@ -5,8 +5,9 @@ CREATE OR REPLACE FUNCTION private.commit_transaction (
   amount          numeric,
   remarks         text
 )
-RETURNS SETOF public.t_transfer AS $$
+RETURNS public.t_transfer AS $$
   DECLARE
+    transfer    public.t_transfer;
     transaction public.transactions;
     ref_debit   public.debits;
     ref_credit  public.credits;
@@ -35,15 +36,10 @@ RETURNS SETOF public.t_transfer AS $$
     SELECT private.log_transaction (request_id, checksum) INTO transaction; 
 
     -- check for replays
-    IF transaction.updated_at <> transaction.created_at THEN
-      RETURN QUERY
-        SELECT transaction.request_id, transaction.id, wallet_id,
-          current_balance, available_balance, updated_at
-          FROM public.debits WHERE transaction_id = transaction.id
-        UNION
-        SELECT transaction.request_id, transaction.id, wallet_id,
-          current_balance, available_balance, updated_at
-          FROM public.credits WHERE transaction_id = transaction.id;
+    SELECT private.replay_transaction (transaction) INTO transfer;
+
+    IF transfer IS NOT NULL THEN
+      RETURN transfer;
     END IF;
 
     -- load reference
@@ -71,11 +67,11 @@ RETURNS SETOF public.t_transfer AS $$
       ) INTO credit;
 
     -- return transfer details
-    RETURN QUERY
-      SELECT transaction.request_id, transaction.id, debit.wallet_id,
-        debit.current_balance, debit.available_balance, debit.updated_at
-      UNION
-      SELECT transaction.request_id, transaction.id, credit.wallet_id,
-        credit.current_balance, credit.available_balance, credit.updated_at;
+    SELECT transaction.request_id, transaction.id,
+      debit.wallet_id, debit.current_balance, debit.available_balance, debit.updated_at,
+      credit.wallet_id, credit.current_balance, credit.available_balance, credit.updated_at
+      INTO transfer;
+
+    RETURN transfer;
   END;
 $$ LANGUAGE plpgsql;
