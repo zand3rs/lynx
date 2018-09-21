@@ -1,4 +1,6 @@
-CREATE OR REPLACE FUNCTION private.process_transfer (
+SET search_path TO public;
+
+CREATE OR REPLACE FUNCTION process_transfer (
   request_id   uuid,
   checksum     text,
   a_wallet_id  uuid,
@@ -7,13 +9,13 @@ CREATE OR REPLACE FUNCTION private.process_transfer (
   remarks      text,
   hold         boolean
 )
-RETURNS public.t_transfer AS $$
+RETURNS t_transfer AS $$
   DECLARE
-    transfer    public.t_transfer;
-    transaction public.transactions;
-    debit       public.debits;
-    credit      public.credits;
-    operation   public.t_operation := CASE WHEN hold THEN 'hold' ELSE 'commit' END;
+    transfer    t_transfer;
+    transaction transactions;
+    debit       debits;
+    credit      credits;
+    operation   t_operation := CASE WHEN hold THEN 'hold' ELSE 'commit' END;
   BEGIN
     -- perform some validations
     IF request_id IS NULL THEN
@@ -41,23 +43,23 @@ RETURNS public.t_transfer AS $$
     END IF;
 
     -- log transaction
-    SELECT * INTO transaction FROM private.log_transaction(request_id, checksum) LIMIT 1;
+    SELECT * INTO transaction FROM log_transaction(request_id, checksum) LIMIT 1;
 
     -- check for replays, return if found
-    SELECT * INTO transfer FROM private.replay_transaction(transaction) LIMIT 1;
+    SELECT * INTO transfer FROM replay_transaction(transaction) LIMIT 1;
 
     IF transfer IS NOT NULL THEN
       RETURN transfer;
     END IF;
 
     -- execute debit
-    SELECT * INTO debit FROM private.debit_wallet(
+    SELECT * INTO debit FROM debit_wallet(
         NULL, transaction.id, a_wallet_id, 0, amount,
         remarks, operation
       ) LIMIT 1;
 
     -- execute credit
-    SELECT * INTO credit FROM private.credit_wallet(
+    SELECT * INTO credit FROM credit_wallet(
         NULL, transaction.id, b_wallet_id, 0, amount,
         remarks, operation
       ) LIMIT 1;

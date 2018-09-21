@@ -1,4 +1,6 @@
-CREATE OR REPLACE FUNCTION private.credit_wallet (
+SET search_path TO public;
+
+CREATE OR REPLACE FUNCTION credit_wallet (
   reference_id    uuid,
   transaction_id  uuid,
   wallet_id       uuid,
@@ -7,10 +9,10 @@ CREATE OR REPLACE FUNCTION private.credit_wallet (
   remarks         text,
   operation       t_operation
 )
-RETURNS public.credits AS $$
+RETURNS credits AS $$
   DECLARE
-    credit public.credits;
-    wallet public.wallets;
+    credit credits;
+    wallet wallets;
 
     current_amount   numeric := 0;
     available_amount numeric := 0;
@@ -46,7 +48,7 @@ RETURNS public.credits AS $$
     END CASE;
 
     -- update wallet
-    UPDATE public.wallets SET
+    UPDATE wallets SET
       current_balance = current_balance + current_amount,
       available_balance = available_balance + available_amount,
       updated_at = CURRENT_TIMESTAMP
@@ -64,7 +66,7 @@ RETURNS public.credits AS $$
     END IF;
 
     -- create a credit record
-    INSERT INTO public.credits (
+    INSERT INTO credits (
       reference_id, transaction_id, wallet_id, amount, remarks, operation, current_balance, available_balance
     ) VALUES (
       reference_id, transaction_id, wallet_id, actual_amount, remarks, operation, wallet.current_balance, wallet.available_balance

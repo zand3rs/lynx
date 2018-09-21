@@ -1,4 +1,6 @@
-CREATE OR REPLACE FUNCTION private.debit_wallet (
+SET search_path TO public;
+
+CREATE OR REPLACE FUNCTION debit_wallet (
   reference_id    uuid,
   transaction_id  uuid,
   wallet_id       uuid,
@@ -7,10 +9,10 @@ CREATE OR REPLACE FUNCTION private.debit_wallet (
   remarks         text,
   operation       t_operation
 )
-RETURNS public.debits AS $$
+RETURNS debits AS $$
   DECLARE
-    debit public.debits;
-    wallet public.wallets;
+    debit debits;
+    wallet wallets;
 
     current_amount   numeric := 0;
     available_amount numeric := 0;
@@ -46,7 +48,7 @@ RETURNS public.debits AS $$
     END CASE;
 
     -- update wallet
-    UPDATE public.wallets SET
+    UPDATE wallets SET
       current_balance = current_balance - current_amount,
       available_balance = available_balance - available_amount,
       updated_at = CURRENT_TIMESTAMP
@@ -66,7 +68,7 @@ RETURNS public.debits AS $$
     END IF;
 
     -- create a debit record
-    INSERT INTO public.debits (
+    INSERT INTO debits (
       reference_id, transaction_id, wallet_id, amount, remarks, operation, current_balance, available_balance
     ) VALUES (
       reference_id, transaction_id, wallet_id, actual_amount, remarks, operation, wallet.current_balance, wallet.available_balance

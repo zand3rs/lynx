@@ -1,9 +1,11 @@
-CREATE OR REPLACE FUNCTION private.replay_transaction (
-  transaction public.transactions
+SET search_path TO public;
+
+CREATE OR REPLACE FUNCTION replay_transaction (
+  transaction transactions
 )
-RETURNS public.t_transfer AS $$
+RETURNS t_transfer AS $$
   DECLARE
-    transfer public.t_transfer;
+    transfer t_transfer;
   BEGIN
     IF transaction IS NOT NULL AND
        transaction.updated_at <> transaction.created_at THEN
@@ -12,7 +14,7 @@ RETURNS public.t_transfer AS $$
                a.wallet_id, a.current_balance, a.available_balance, a.updated_at,
                b.wallet_id, b.current_balance, b.available_balance, b.updated_at
           INTO transfer
-          FROM public.debits a, public.credits b
+          FROM debits a, credits b
           WHERE a.transaction_id = transaction.id AND b.transaction_id = transaction.id
           LIMIT 1;
     END IF;

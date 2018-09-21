@@ -1,12 +1,14 @@
-CREATE OR REPLACE FUNCTION private.log_transaction (
+SET search_path TO public;
+
+CREATE OR REPLACE FUNCTION log_transaction (
   _request_id  uuid,
   _checksum    text
 )
-RETURNS public.transactions AS $$
+RETURNS transactions AS $$
   DECLARE
-    transaction public.transactions;
+    transaction transactions;
   BEGIN
-    INSERT INTO public.transactions (
+    INSERT INTO transactions (
       request_id, checksum
     ) VALUES (
       _request_id, _checksum
