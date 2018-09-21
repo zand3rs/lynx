@@ -22,6 +22,8 @@ scripts=(
   "schema/tables/transactions.sql"
   "schema/tables/credits.sql"
   "schema/tables/debits.sql"
+  "schema/tables/audit_logs.sql"
+  "schema/functions/log_changes.sql"
   "schema/functions/log_transaction.sql"
   "schema/functions/replay_transaction.sql"
   "schema/functions/create_wallet.sql"
@@ -32,6 +34,7 @@ scripts=(
   "schema/functions/release_transaction.sql"
   "schema/records/system.sql"
   "schema/records/sample.sql"
+
 )
 
 for s in ${scripts[*]}; do
