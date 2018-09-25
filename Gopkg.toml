@@ -1,0 +1,28 @@
+# Gopkg.toml
+#
+# Refer to https://golang.github.io/dep/docs/Gopkg.toml.html
+# for detailed Gopkg.toml documentation.
+#
+
+noverify = [
+  ".go"
+  "conf"
+  "db"
+  "dist"
+  "messages"
+  "public"
+  "test-results"
+  "wiki"
+]
+
+required = [
+  "github.com/revel/cmd/revel"
+]
+
+[[constraint]]
+  name = "github.com/revel/cmd"
+  version = "0.19.0"
+
+[[constraint]]
+  name = "github.com/revel/revel"
+  version = "0.19.0"
