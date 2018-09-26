@@ -32,10 +32,14 @@ DIST_DIR = $(CWD)/dist
 DIST_PKG = $(PACKAGE_NAME)-$(TAG)
 
 all:
-	@echo 'make [dist|deploy|test|clean]'
+	@echo 'make [db|dist|deploy|test|clean]'
+
+db:
+	@echo 'Initializing db...'
+	@db/initdb.sh
 
 init:
-	@echo 'Initializing...'
+	@echo 'Initializing project...'
 	@export GOPATH=$(GOPATH)
 	@\
 	go version && \
@@ -48,7 +52,7 @@ init:
 	fi
 
 build: init
-	@echo 'Build version: $(TAG)...'
+	@echo 'Build version: $(TAG)'
 	@\
 	LAST_BUILD=`[ -r $(BUILD_FILE) ] && cat $(BUILD_FILE)`; \
 	if [ -n "$(TAG)" ] && [ "$(TAG)" != "$$LAST_BUILD" ]; then \
@@ -77,4 +81,4 @@ silent:
 %: silent
 	@:
 
-.PHONY: silent all clean cleanall init build dist deploy test
+.PHONY: silent all clean cleanall db init build dist deploy test
