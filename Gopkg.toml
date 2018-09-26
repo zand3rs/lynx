@@ -12,6 +12,7 @@ noverify = [
   "messages",
   "public",
   "test-results",
+  "tmp",
   "wiki"
 ]
 
