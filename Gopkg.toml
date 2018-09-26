@@ -5,13 +5,13 @@
 #
 
 noverify = [
-  ".go"
-  "conf"
-  "db"
-  "dist"
-  "messages"
-  "public"
-  "test-results"
+  ".go",
+  "conf",
+  "db",
+  "dist",
+  "messages",
+  "public",
+  "test-results",
   "wiki"
 ]
 
