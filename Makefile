@@ -24,7 +24,10 @@ PACKAGE_NAME = $(shell git remote -v 2>/dev/null | grep fetch | sed -E 's/^.*\/(
 REVEL_PKG = github.com/revel
 REVEL_CMD = github.com/revel/cmd/revel
 
-PROJECT_PKG = voyager.ph/$(PACKAGE_NAME)
+PROJECT_DOMAIN = voyager.ph
+PROJECT_GOROOT = $(GOSRC)/$(PROJECT_DOMAIN)
+
+PROJECT_PKG = $(PROJECT_DOMAIN)/$(PACKAGE_NAME)
 PROJECT_SRC = $(GOSRC)/$(PROJECT_PKG)
 
 VENDOR_DIR = $(CWD)/vendor
@@ -44,8 +47,18 @@ db:
 
 init:
 	@echo 'Initializing project...'
-	@export GOPATH=$(GOPATH)
 	@\
+	mkdir -p $(BUILD_DIR) && \
+	mkdir -p $(GOBIN) && \
+	mkdir -p $(GOSRC) && \
+	mkdir -p $(GOPKG) && \
+	mkdir -p $(GOPKG) && \
+	mkdir -p $(PROJECT_GOROOT) && \
+	if [ ! -h "$(PROJECT_GOROOT)/$(PACKAGE_NAME)" ]; then \
+	  cd $(PROJECT_GOROOT) && \
+	  \ln -fs $(CWD) $(PROJECT_NAME); \
+	fi; \
+	export GOPATH=$(GOPATH) && \
 	go version && \
 	if [ ! -x "$(DEP)" ]; then \
 	  curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh; \
