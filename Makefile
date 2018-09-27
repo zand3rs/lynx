@@ -57,7 +57,7 @@ init:
 
 run: init
 	@echo 'Starting app...'
-	cd $(PROJECT_SRC) && $(REVEL) run &
+	cd $(PROJECT_SRC) && $(REVEL) run || exit 0
 
 build: init
 	@echo 'Compiling project...'
