@@ -6,10 +6,9 @@
 
 noverify = [
   ".go",
-  ".tmp",
+  ".build",
   "conf",
   "db",
-  "dist",
   "log",
   "messages",
   "public",
