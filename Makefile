@@ -28,6 +28,7 @@ PROJECT_SRC = $(GOSRC)/$(PROJECT_PKG)
 BUILD_FILE = /tmp/.$(PACKAGE_NAME)-last-build
 DEPLOY_FILE = /tmp/.$(PACKAGE_NAME)-last-deploy
 
+TMP_DIR = $(CWD)/.tmp
 DIST_DIR = $(CWD)/dist
 DIST_PKG = $(PACKAGE_NAME)-$(TAG)
 
@@ -56,8 +57,9 @@ build: init
 	@\
 	LAST_BUILD=`[ -r $(BUILD_FILE) ] && cat $(BUILD_FILE)`; \
 	if [ -n "$(TAG)" ] && [ "$(TAG)" != "$$LAST_BUILD" ]; then \
-	  cd $(GOPATH) && \
-	  $(REVEL) version; \
+	  $(REVEL) version && \
+	  $(REVEL) build $(PROJECT_PKG) $(TMP_DIR)/$(DIST_PKG) prod && \
+	  echo; \
 	fi
 
 dist: build

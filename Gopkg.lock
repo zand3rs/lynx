@@ -147,6 +147,14 @@
   version = "v2.0.0"
 
 [[projects]]
+  digest = "1:a4fcebba8c1b8ae25dd31f1cfa6c6ed5b1e5719ab2e9e1c18e8c98969ebde215"
+  name = "github.com/inconshreveable/log15"
+  packages = ["term"]
+  pruneopts = ""
+  revision = "67afb5ed74ec82fd7ac8f49d27c509ac6f991970"
+  version = "v2.14"
+
+[[projects]]
   digest = "1:d269638dbd514822446c3c818b6389c880058af79ec54d97731818b34fe66921"
   name = "github.com/jinzhu/gorm"
   packages = [
@@ -301,12 +309,12 @@
   version = "v1"
 
 [[projects]]
-  digest = "1:70e78f21f797a72a64a8cee4af8d3f8e8d8297aff3f523e3121f6265e5480821"
+  branch = "master"
+  digest = "1:f45f196b397a7697584d6235b8fdc129c4ab3289ac83b1746983a957a191ae21"
   name = "github.com/revel/log15"
   packages = ["."]
   pruneopts = ""
-  revision = "b105bd37f74e5d9dc7b6ad7806715c7a2b83fd3f"
-  version = "v2.11"
+  revision = "793412a67da6f8d15fede4c38f5c66272478cb8a"
 
 [[projects]]
   digest = "1:df5d3c1512c2fde5dad93931f67e22108b49528b1c586a3ae5157e847ec5cc8c"
@@ -376,12 +384,12 @@
   version = "v20180529"
 
 [[projects]]
+  branch = "master"
   digest = "1:e7817b7ae6f73d6e5535ff624c5770228781ff16249ee72845ba58018df27e3b"
   name = "github.com/xeonx/timeago"
   packages = ["."]
   pruneopts = ""
   revision = "714e6695c468c22fb6431a914d8c5f9d19fa2367"
-  version = "v1.0.0-rc3"
 
 [[projects]]
   digest = "1:bf83d7fb8e87f39806ce3550657a8a31bbeb96a35eb105bd98e7362559fba27f"
