@@ -21,16 +21,19 @@ REVEL = $(GOBIN)/revel
 TAG = $(shell git describe --tags 2>/dev/null || echo 'alpha')
 PACKAGE_NAME = $(shell git remote -v 2>/dev/null | grep fetch | sed -E 's/^.*\/([^/]+)\.git.*$$/\1/')
 
-REVEL_PKG = github.com/revel/cmd/revel
+REVEL_PKG = github.com/revel
+REVEL_CMD = github.com/revel/cmd/revel
+
 PROJECT_PKG = voyager.ph/$(PACKAGE_NAME)
 PROJECT_SRC = $(GOSRC)/$(PROJECT_PKG)
 
-BUILD_FILE = /tmp/.$(PACKAGE_NAME)-last-build
-DEPLOY_FILE = /tmp/.$(PACKAGE_NAME)-last-deploy
+VENDOR_DIR = $(CWD)/vendor
+BUILD_DIR = $(CWD)/.build
+DIST_NAME = $(PACKAGE_NAME)-$(TAG)
+DIST_TGZ  = $(DIST_NAME).tgz
 
-TMP_DIR = $(CWD)/.tmp
-DIST_DIR = $(CWD)/dist
-DIST_PKG = $(PACKAGE_NAME)-$(TAG)
+APP_BIN = $(PACKAGE_NAME)
+
 
 all:
 	@echo 'make [db|dist|deploy|test|clean]'
@@ -49,33 +52,48 @@ init:
 	fi; \
 	cd $(PROJECT_SRC) && $(DEP) ensure -v && \
 	if [ ! -x "$(REVEL)" ]; then \
-	  go install $(REVEL_PKG); \
+	  go install $(REVEL_CMD); \
 	fi
 
 build: init
+	@echo 'Compiling project...'
 	@echo 'Build version: $(TAG)'
 	@\
-	LAST_BUILD=`[ -r $(BUILD_FILE) ] && cat $(BUILD_FILE)`; \
-	if [ -n "$(TAG)" ] && [ "$(TAG)" != "$$LAST_BUILD" ]; then \
+	if [ ! -d "$(BUILD_DIR)/$(DIST_NAME)" ]; then \
+	  cd $(GOPATH) && \
 	  $(REVEL) version && \
-	  $(REVEL) build $(PROJECT_PKG) $(TMP_DIR)/$(DIST_PKG) prod && \
-	  echo; \
+	  $(REVEL) build $(PROJECT_PKG) $(BUILD_DIR)/$(DIST_NAME) prod && \
+	  echo "$(BUILD_DIR)/$(DIST_NAME)"; \
 	fi
 
 dist: build
+	@echo 'Creating distribution package...'
+	@echo 'Release: $(DIST_NAME)'
+	@\
+	if [ ! -f "$(BUILD_DIR)/$(DIST_TGZ)" ]; then \
+	  cd $(BUILD_DIR) && \
+	  tar -cvf - \
+	    $(DIST_NAME)/$(APP_BIN) \
+	    $(DIST_NAME)/run.sh \
+	    $(DIST_NAME)/src/$(REVEL_PKG) \
+	    $(DIST_NAME)/src/$(PROJECT_PKG)/conf \
+	    $(DIST_NAME)/src/$(PROJECT_PKG)/public \
+	    $(DIST_NAME)/src/$(PROJECT_PKG)/app/views \
+	    | gzip -c9 > $(BUILD_DIR)/$(DIST_TGZ) && \
+	  echo "$(BUILD_DIR)/$(DIST_TGZ)"; \
+	fi
 
 deploy: dist
 
 test:
 
 clean:
-	@echo 'Deleting dist packages..'
-	@\rm -Rf $(DIST_DIR)/*
+	@echo 'Deleting vendor files...'
+	@\rm -Rf $(VENDOR_DIR)/*
 
 cleanall: clean
-	@echo 'Deleting build temp files...'
-	@\rm -Rf $(BUILD_FILE)
-	@\rm -Rf $(DEPLOY_FILE)
+	@echo 'Deleting build files..'
+	@\rm -Rf $(BUILD_DIR)/*
 
 silent:
 	@:
