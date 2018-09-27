@@ -30,8 +30,10 @@ PROJECT_GOROOT = $(GOSRC)/$(PROJECT_DOMAIN)
 PROJECT_PKG = $(PROJECT_DOMAIN)/$(PACKAGE_NAME)
 PROJECT_SRC = $(GOSRC)/$(PROJECT_PKG)
 
+GO_LOCAL_DIR = $(GOPATH)
 VENDOR_DIR = $(CWD)/vendor
 BUILD_DIR = $(CWD)/.build
+
 DIST_NAME = $(PACKAGE_NAME)-$(TAG)
 DIST_TGZ  = $(DIST_NAME).tgz
 
@@ -48,15 +50,10 @@ db:
 init:
 	@echo 'Initializing project...'
 	@\
-	mkdir -p $(BUILD_DIR) && \
-	mkdir -p $(GOBIN) && \
-	mkdir -p $(GOSRC) && \
-	mkdir -p $(GOPKG) && \
-	mkdir -p $(GOPKG) && \
-	mkdir -p $(PROJECT_GOROOT) && \
+	mkdir -p $(GOBIN) $(GOSRC) $(GOPKG) && \
+	mkdir -p $(BUILD_DIR) $(PROJECT_GOROOT) && \
 	if [ ! -h "$(PROJECT_GOROOT)/$(PACKAGE_NAME)" ]; then \
-	  cd $(PROJECT_GOROOT) && \
-	  \ln -fs $(CWD) $(PROJECT_NAME); \
+	  \ln -fsr $(CWD) $(PROJECT_GOROOT)/$(PACKAGE_NAME); \
 	fi; \
 	export GOPATH=$(GOPATH) && \
 	go version && \
@@ -106,11 +103,11 @@ test:
 
 clean:
 	@echo 'Deleting vendor files...'
-	@\rm -Rf $(VENDOR_DIR)/*
+	@\rm -Rf $(VENDOR_DIR)
 
 cleanall: clean
 	@echo 'Deleting build files..'
-	@\rm -Rf $(BUILD_DIR)/*
+	@\rm -Rf $(GO_LOCAL_DIR) $(BUILD_DIR)
 
 silent:
 	@:
