@@ -55,6 +55,10 @@ init:
 	  go install $(REVEL_CMD); \
 	fi
 
+run: init
+	@echo 'Starting app...'
+	cd $(PROJECT_SRC) && $(REVEL) run &
+
 build: init
 	@echo 'Compiling project...'
 	@echo 'Build version: $(TAG)'
@@ -101,4 +105,4 @@ silent:
 %: silent
 	@:
 
-.PHONY: silent all clean cleanall db init build dist deploy test
+.PHONY: silent all clean cleanall db init run build dist deploy test
