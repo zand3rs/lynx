@@ -32,6 +32,7 @@ PROJECT_SRC = $(GOSRC)/$(PROJECT_PKG)
 
 GO_LOCAL_DIR = $(GOPATH)
 VENDOR_DIR = $(CWD)/vendor
+VENDOR_NEW_DIR = $(CWD)/.vendor-new
 BUILD_DIR = $(CWD)/.build
 
 DIST_NAME = $(PACKAGE_NAME)-$(TAG)
@@ -62,7 +63,7 @@ init:
 	fi; \
 	cd $(PROJECT_SRC) && $(DEP) ensure -v && \
 	if [ ! -x "$(REVEL)" ]; then \
-	  go install $(REVEL_CMD); \
+	  go install ./vendor/$(REVEL_CMD); \
 	fi
 
 run: init
@@ -103,7 +104,7 @@ test:
 
 clean:
 	@echo 'Deleting vendor files...'
-	@\rm -Rf $(VENDOR_DIR)
+	@\rm -Rf $(VENDOR_DIR) $(VENDOR_NEW_DIR)
 
 cleanall: clean
 	@echo 'Deleting build files..'

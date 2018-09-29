@@ -5,8 +5,6 @@
 #
 
 noverify = [
-  ".go",
-  ".build",
   "conf",
   "db",
   "log",
@@ -19,7 +17,11 @@ noverify = [
 
 required = [
   "github.com/revel/cmd/revel",
-  "github.com/revel/modules/testrunner/app"
+  "github.com/revel/modules/static",
+  "github.com/revel/modules/static/app/controllers",
+  "github.com/revel/modules/testrunner",
+  "github.com/revel/modules/testrunner/app",
+  "github.com/revel/modules/testrunner/app/controllers"
 ]
 
 [[override]]
@@ -30,10 +32,18 @@ required = [
   name = "github.com/revel/log15"
   branch = "master"
 
-[[override]]
+[[constraint]]
   name = "github.com/revel/cmd"
   version = "0.19.0"
 
-[[override]]
+[[constraint]]
+  name = "github.com/revel/modules"
+  version = "0.19.0"
+
+[[constraint]]
   name = "github.com/revel/revel"
   version = "0.19.0"
+
+[prune]
+  go-tests = true
+  unused-packages = true
