@@ -9,6 +9,8 @@
 # make deploy TAG='<version-tag>'
 #
 
+ENV = dev
+
 CWD = $(shell pwd)
 GOPATH = $(CWD)/.go
 GOBIN = $(GOPATH)/bin
@@ -39,6 +41,7 @@ DIST_NAME = $(PACKAGE_NAME)-$(TAG)
 DIST_TGZ  = $(DIST_NAME).tgz
 
 APP_BIN = $(PACKAGE_NAME)
+APP_ENV = $(ENV)
 
 
 all:
@@ -68,7 +71,7 @@ init:
 
 run: init
 	@echo 'Starting app...'
-	cd $(PROJECT_SRC) && $(REVEL) run || exit 0
+	cd $(GOPATH) && $(REVEL) run $(PROJECT_PKG) $(APP_ENV) || true
 
 build: init
 	@echo 'Compiling project...'
