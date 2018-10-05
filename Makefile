@@ -71,14 +71,15 @@ init:
 
 run: init
 	@echo 'Starting app...'
-	cd $(GOPATH) && $(REVEL) run $(PROJECT_PKG) $(APP_ENV) || true
+	export GOPATH=$(GOPATH) && cd $(GOPATH) && \
+	$(REVEL) run $(PROJECT_PKG) $(APP_ENV) || true
 
 build: init
 	@echo 'Compiling project...'
 	@echo 'Build version: $(TAG)'
 	@\
 	if [ ! -d "$(BUILD_DIR)/$(DIST_NAME)" ]; then \
-	  cd $(GOPATH) && \
+	  export GOPATH=$(GOPATH) && cd $(GOPATH) && \
 	  $(REVEL) version && \
 	  $(REVEL) build $(PROJECT_PKG) $(BUILD_DIR)/$(DIST_NAME) prod && \
 	  echo "$(BUILD_DIR)/$(DIST_NAME)"; \
