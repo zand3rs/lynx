@@ -18,6 +18,9 @@ CREATE TYPE t_account_type AS ENUM ('system', 'default');
 DROP TYPE IF EXISTS t_wallet_type CASCADE;
 CREATE TYPE t_wallet_type AS ENUM ('system', 'account', 'default');
 
+DROP TYPE IF EXISTS t_tran_type CASCADE;
+CREATE TYPE t_tran_type AS ENUM ('credit', 'debit', 'topup', 'transfer');
+
 DROP TYPE IF EXISTS t_operation CASCADE;
 CREATE TYPE t_operation AS ENUM ('commit', 'hold', 'release');
 
